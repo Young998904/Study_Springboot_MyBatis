@@ -1,3 +1,4 @@
+<!--
 <?xml version="1.0" encoding="UTF-8"?>
 
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
@@ -5,10 +6,10 @@
 
 <mapper namespace="com.ay.study.mybatis_1101.app.article.repository.ArticleMapper">
 
-<!-- yml 파일에서의 alias 설정으로 resultType 앞의 package 명 생략 가능 -->
+&lt;!&ndash; yml 파일에서의 alias 설정으로 resultType 앞의 package 명 생략 가능 &ndash;&gt;
   <select id="getArticles" resultType="Article">
     select * from article
   </select>
 
 
-</mapper>
+</mapper>-->
