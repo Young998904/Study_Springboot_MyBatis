@@ -1,14 +1,55 @@
-# DB ?? ??
+## DB ?? ??
+#spring:
+#  profiles:
+#    active: dev
+#  datasource:
+#    driver-class-name:
+#    # driver-class-name: net.sf.log4jdbc.sql.jdbcapi.DriverSpy
+#    url: jdbc:mariadb://127.0.0.1:3306/mybatis?useUnicode=true&characterEncoding=utf8&autoReconnect=true&serverTimezone=Asia/Seoul
+#    username: lldj
+#    password: lldj123414
+### MyBatis ?? ??
+##mybatis:
+##  mapper-locations: mybatis-mapper/*.xml
+##  type-aliases-package: com.ay.study.mybatis_1101.app.article.dto
+#
+### MyBatis logging
+#logging:
+#  level:
+#    jdbc:
+#      sqlonly: off
+#      sqltiming: debug
+#      resulttable: info
+#      audit: info
+
+#  logging.level.jdbc.sqlonly=off
+#  logging.level.jdbc.sqltiming=info
+#  logging.level.jdbc.resultsettable=info
+#  logging.level.jdbc.audit=off
+#  logging.level.jdbc.resultset=off
+#  logging.level.jdbc.connection=off
+
 spring:
-  profiles:
-    active: dev
   datasource:
-    driver-class-name:
-    # driver-class-name: net.sf.log4jdbc.sql.jdbcapi.DriverSpy
-    url: jdbc:mariadb://127.0.0.1:3306/mybatis?useUnicode=true&characterEncoding=utf8&autoReconnect=true&serverTimezone=Asia/Seoul
+    #url: jdbc:mysql://localhost:3306/sample  ## 1. 기존 사용하던 jdbc:mysql 로 시작하는 url 주석처리 후 jdbc:log4jdbc:mysql 로 시작하는 url 로 변경.
+    url: jdbc:log4jdbc:mariadb://127.0.0.1:3306/mybatis?useUnicode=true&characterEncoding=utf8&autoReconnect=true&serverTimezone=Asia/Seoul
     username: lldj
     password: lldj123414
-## MyBatis ?? ??
-#mybatis:
-#  mapper-locations: mybatis-mapper/*.xml
-#  type-aliases-package: com.ay.study.mybatis_1101.app.article.dto
+    #driver-class-name: com.mysql.jdbc.Driver
+    ## 2. 기존 사용하던 com.mysql.jdbc.Driver를 net.sf.log4jdbc.sql.jdbcapi.DriverSpy 로 변경.
+    driver-class-name: net.sf.log4jdbc.sql.jdbcapi.DriverSpy
+    hikari:
+      connection-timeout: 5000
+      validation-timeout: 1000
+      maximum-pool-size: 30
+      minimum-idle: 2
+      connection-test-query: SELECT 1
+
+### MyBatis logging
+logging:
+  level:
+    jdbc:
+      sqlonly: off
+      sqltiming: info
+      resulttable: info
+      audit: off

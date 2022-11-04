@@ -19,4 +19,12 @@ public class ArticleService {
         articleRepository.writeArticle(subject, content);
         return articleRepository.getLastInsertId();
     }
+
+    public Article getArticleById(long id) {
+        return articleRepository.getArticleById(id);
+    }
+
+    public List<Article> getArticlesBySubject(String type, String subject) {
+        return articleRepository.getArticlesBySubject(type, subject);
+    }
 }

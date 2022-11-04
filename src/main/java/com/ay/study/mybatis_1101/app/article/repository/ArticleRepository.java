@@ -4,6 +4,7 @@ import com.ay.study.mybatis_1101.app.article.dto.Article;
 import java.util.List;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 
 @Mapper
@@ -31,4 +32,18 @@ public interface ArticleRepository {
         SELECT LAST_INSERT_ID()
         """)
     long getLastInsertId();
+
+    @Select("""
+        SELECT *
+        FROM article
+        WHERE id = #{id}
+        """)
+    Article getArticleById(@Param("id") long id);
+
+    @Select("""
+        SELECT *
+        FROM article
+        WHERE ${type} LIKE CONCAT('%', #{subject}, '%')
+        """)
+    List<Article> getArticlesBySubject(String type, String subject);
 }

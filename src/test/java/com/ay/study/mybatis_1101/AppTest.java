@@ -32,4 +32,18 @@ class AppTest {
         long id = articleService.writeArticle(subject, content);
         assertThat(id).isGreaterThan(2);
     }
+
+    @Test
+    @DisplayName("게시물_단건_조회")
+    void t3() {
+        Article article = articleService.getArticleById(2L);
+        assertThat(article.getSubject()).isEqualTo("제목2");
+    }
+
+    @Test
+    @DisplayName("제목으로_게시물_조회")
+    void t4() {
+        List<Article> articles = articleService.getArticlesBySubject("subject", "제목");
+        assertThat(articles.size()).isEqualTo(2);
+    }
 }
