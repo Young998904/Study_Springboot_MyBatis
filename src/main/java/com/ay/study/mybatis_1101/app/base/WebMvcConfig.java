@@ -1,6 +1,7 @@
 package com.ay.study.mybatis_1101.app.base;
 
 import com.ay.study.mybatis_1101.app.interceptor.BeforeActionInterceptor;
+import com.ay.study.mybatis_1101.app.interceptor.NeedToLoginInterceptor;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
@@ -13,6 +14,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @RequiredArgsConstructor
 public class WebMvcConfig implements WebMvcConfigurer {
     private final BeforeActionInterceptor beforeActionInterceptor;
+    private final NeedToLoginInterceptor needToLoginInterceptor;
 
     @Value("${resources.notload.list}") // application.yml에 설정된 값을 가지고 오기
     private List<String> notLoadList;
@@ -22,7 +24,6 @@ public class WebMvcConfig implements WebMvcConfigurer {
 
         InterceptorRegistration ir;
         ir = registry.addInterceptor(beforeActionInterceptor);
-
 //        // 방법 (1)
 //        // interceptor 작동 기준 추가
 //        ir.addPathPatterns("/**");
@@ -36,5 +37,8 @@ public class WebMvcConfig implements WebMvcConfigurer {
         // 방법(2) : yml 파일 활용
         notLoadList.add("/article/test"); // 예외 경로 추가
         ir.addPathPatterns("/**").excludePathPatterns(notLoadList);
+
+        ir = registry.addInterceptor(needToLoginInterceptor);
+        ir.addPathPatterns("/article/write");
     }
 }
