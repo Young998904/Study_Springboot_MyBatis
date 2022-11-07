@@ -48,8 +48,14 @@ spring:
 ### MyBatis logging
 logging:
   level:
+    com.ay.study.mybatis_1101: debug
     jdbc:
       sqlonly: off
       sqltiming: info
       resulttable: info
       audit: off
+
+# interceptor notLoadLIst
+resources:
+  notload:
+    list: /favicon.ico, /resource/**, /gen/**, /error
