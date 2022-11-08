@@ -1,6 +1,7 @@
 package com.ay.study.mybatis_1101.app.base;
 
 import lombok.Getter;
+import lombok.Setter;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.annotation.SessionScope;
 
@@ -15,5 +16,9 @@ public class Rq {
 
     public void increaseCount() {
         this.count ++;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }

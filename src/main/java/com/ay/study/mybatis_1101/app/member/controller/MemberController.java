@@ -1,5 +1,6 @@
 package com.ay.study.mybatis_1101.app.member.controller;
 
+import com.ay.study.mybatis_1101.app.base.Rq;
 import com.ay.study.mybatis_1101.app.member.dto.Member;
 import com.ay.study.mybatis_1101.app.member.service.MemberService;
 import javax.servlet.http.HttpSession;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/member")
 public class MemberController {
     private final MemberService memberService;
+    private final Rq rq;
 
     @GetMapping("/login")
     public String showLogin() {
@@ -35,6 +37,7 @@ public class MemberController {
         // login 관련 인터셉터에게 로그인 정보를 전달
         // 단순히 logined 에 T/F 를 보내면 로그인한 유저가 누군지 알 수 없음
         session.setAttribute("loginedMemberId", member.getId());
+        rq.setName(member.getName());
 
         return "redirect:/?msg=loginSuccess";
     }
