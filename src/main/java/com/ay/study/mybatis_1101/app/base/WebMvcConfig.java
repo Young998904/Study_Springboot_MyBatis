@@ -1,6 +1,7 @@
 package com.ay.study.mybatis_1101.app.base;
 
 import com.ay.study.mybatis_1101.app.interceptor.BeforeActionInterceptor;
+import com.ay.study.mybatis_1101.app.interceptor.NeedToAdminInterceptor;
 import com.ay.study.mybatis_1101.app.interceptor.NeedToLoginInterceptor;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
@@ -15,6 +16,8 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 public class WebMvcConfig implements WebMvcConfigurer {
     private final BeforeActionInterceptor beforeActionInterceptor;
     private final NeedToLoginInterceptor needToLoginInterceptor;
+
+    private final NeedToAdminInterceptor needToAdminInterceptor;
 
     @Value("${resources.notload.list}") // application.yml에 설정된 값을 가지고 오기
     private List<String> notLoadList;
@@ -40,5 +43,8 @@ public class WebMvcConfig implements WebMvcConfigurer {
 
         ir = registry.addInterceptor(needToLoginInterceptor);
         ir.addPathPatterns("/article/write");
+
+        ir = registry.addInterceptor(needToAdminInterceptor); // 추가
+        ir.addPathPatterns("/admin/**"); // admin 에 접근하는 모든 경로에 해당
     }
 }

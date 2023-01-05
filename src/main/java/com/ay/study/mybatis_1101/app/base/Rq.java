@@ -47,12 +47,18 @@ public class Rq {
         return (String) session.getAttribute("loginedMemberName");
     }
 
+    public String getLoginedMemberRoles() {
+        return (String) session.getAttribute("loginedMemberRoles");
+    }
+
     public Member getLoginedMember() {
         long id = getLoginedMemberId();
         String name = getLoginedMemberName();
+        String roles = getLoginedMemberRoles();
         Member member = Member.builder()
             .id(id)
             .name(name)
+            .roles(roles)
             .build();
         return member;
     }
@@ -69,11 +75,19 @@ public class Rq {
         // 단순히 logined 에 T/F 를 보내면 로그인한 유저가 누군지 알 수 없음
         session.setAttribute("loginedMemberId", member.getId());
         session.setAttribute("loginedMemberName", member.getName());
+        session.setAttribute("loginedMemberRoles", member.getRoles());
         // 이메일 등등 등록 가능
     }
 
     public void setLogoutDone() {
         session.removeAttribute("loginedMemberId");
         session.removeAttribute("loginedMemberName");
+        session.removeAttribute("loginedMemberRoles");
+    }
+
+    public boolean isAdmin() {
+        if (isLogout()) return false;
+
+        return getLoginedMember().hasRole("ADMIN");
     }
 }

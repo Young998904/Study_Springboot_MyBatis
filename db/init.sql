@@ -33,24 +33,29 @@ CREATE TABLE `member` (
                           username CHAR(100) NOT NULL UNIQUE,
                           `password` CHAR(100) NOT NULL,
                           `name` CHAR(100) NOT NULL,
-                          email CHAR(100) NOT NULL
+                          email CHAR(100) NOT NULL,
+                          roles CHAR(100) NOt NULL
 );
 
+-- 일반 회원
 INSERT INTO `member`
 SET createDate = NOW(),
     modifyDate = NOW(),
     username = 'user1',
     `password` = '{noop}1234',
     `name` = '유저1',
-    email = 'user1@test.com';
+    email = 'user1@test.com',
+    roles = 'MEMBER';
 
+-- 관리자
 INSERT INTO `member`
 SET createDate = NOW(),
     modifyDate = NOW(),
     username = 'user2',
     `password` = '{noop}1234',
     `name` = '유저2',
-    email = 'user2@test.com';
+    email = 'user2@test.com'
+    roles = 'ADMIN,MEMBER';
 
 SELECT *
 FROM `member`;
