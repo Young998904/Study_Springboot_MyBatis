@@ -3,7 +3,6 @@ package com.ay.study.mybatis_1101.app.interceptor;
 import com.ay.study.mybatis_1101.app.base.Rq;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Configuration;
@@ -21,13 +20,14 @@ public class NeedToLoginInterceptor implements HandlerInterceptor {
         rq.increaseCount();
         log.debug("rq : " + rq + ", rq count : " + rq.getCount());
 
-        // Session 활용
-        HttpSession session = request.getSession();
-        Long loginedMemberId = (Long) session.getAttribute("loginedMemberId");
+//        // Rq 를 @RequestScope 로 설정 후 로그인 로직 추가함으로서 생략되는 코드
+//        // Session 활용
+//        HttpSession session = request.getSession();
+//        Long loginedMemberId = (Long) session.getAttribute("loginedMemberId");
+//
+//        boolean isLogined = loginedMemberId != null;
 
-        boolean isLogined = loginedMemberId != null;
-
-        if(!isLogined) {
+        if(!rq.isLogined()) {
             response.setCharacterEncoding("UTF-8");
             response.setContentType("text/html; charset=UTF-8");
             response.getWriter().append("로그인 후 이용바랍니다.");

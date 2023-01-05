@@ -34,10 +34,7 @@ public class MemberController {
             return "redirect:/?msg=passwordError";
         }
 
-        // login 관련 인터셉터에게 로그인 정보를 전달
-        // 단순히 logined 에 T/F 를 보내면 로그인한 유저가 누군지 알 수 없음
-        session.setAttribute("loginedMemberId", member.getId());
-        rq.setName(member.getName());
+        rq.setLoginDone(member);
 
         return "redirect:/?msg=loginSuccess";
     }

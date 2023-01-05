@@ -1,8 +1,10 @@
 package com.ay.study.mybatis_1101.app.member.dto;
 
+import lombok.Builder;
 import lombok.Getter;
 
 @Getter
+@Builder
 public class Member {
     private long id;
     private String username;
